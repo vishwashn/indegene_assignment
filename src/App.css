@@ -1,0 +1,13 @@
+.todo-container {
+  padding: 10px;
+}
+
+.ant-btn {
+  margin: 10px;  
+}
+
+label {
+  color: grey;
+  font-size: 14px;
+  font-weight: bold;
+}
