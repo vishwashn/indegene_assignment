@@ -35,7 +35,7 @@ class Movies extends Component {
       loading: true
     });
     Axios.get(
-      `http://www.omdbapi.com/?i=${imdbID}&plot=full&apikey=96aeca02`
+      `https://www.omdbapi.com/?i=${imdbID}&plot=full&apikey=96aeca02`
     ).then(res => this.setState({ loading: false, movieDetails: res.data }));
   };
 

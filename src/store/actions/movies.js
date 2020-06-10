@@ -4,7 +4,7 @@ import Axios from "axios";
 export const fetchMovies = ({ title, year }) => {
   return dispatch => {
     Axios
-      .get(`http://www.omdbapi.com/?s=${title}&y=${year}&apikey=96aeca02`)
+      .get(`https://www.omdbapi.com/?s=${title}&y=${year}&apikey=96aeca02`)
       .then(res => {
         if(res.data.Response === "True")
           dispatch({type: actionTypes.fetchMovies, movies: res.data.Search})
