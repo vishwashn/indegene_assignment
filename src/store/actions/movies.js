@@ -3,6 +3,7 @@ import Axios from "axios";
 
 export const fetchMovies = ({ title, year }) => {
   return dispatch => {
+    dispatch({type: actionTypes.apiLoading})
     Axios
       .get(`https://www.omdbapi.com/?s=${title}&y=${year}&apikey=96aeca02`)
       .then(res => {

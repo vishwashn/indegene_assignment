@@ -5,6 +5,7 @@ import { fetchMovies } from "../store/actions/movies";
 import ModalComponent from "../components/Modal";
 import { renderMovieDetails } from "../components/MovieDetails";
 import Axios from "axios";
+import { LoadingOutlined } from "@ant-design/icons";
 
 const { TabPane } = Tabs;
 
@@ -92,7 +93,7 @@ class Movies extends Component {
       titleError,
       yearError
     } = this.state;
-    const { movies, error } = this.props;
+    const { movies, error, apiLoading } = this.props;
     return (
       <div className="movies-container">
         <h2>OMDB Movies</h2>
@@ -111,14 +112,20 @@ class Movies extends Component {
           value={title}
           placeholder="Movie title"
         />
-        <DatePicker style={{
+        <DatePicker
+          style={{
             width: "100px",
             marginLeft: "10px",
             backgroundColor: yearError ? "#fcdede" : "white"
-          }} placeholder="Year" onChange={(date, dateString) => this.setState({year: dateString})} picker="year" />
-        <Button type="primary" onClick={this.fetchMovies}>
+          }}
+          placeholder="Year"
+          onChange={(date, dateString) => this.setState({ year: dateString })}
+          picker="year"
+        />
+        <Button type="primary" disabled={apiLoading} onClick={this.fetchMovies}>
           Search
         </Button>
+        {apiLoading && <LoadingOutlined />}
         <div style={{ color: "red", padding: 10 }}>{error}</div>
         <Tabs defaultActiveKey="movies-list" onChange={this.callback}>
           <TabPane tab="Movies list" key="movies-list">
@@ -142,7 +149,8 @@ class Movies extends Component {
 const mapStateToProps = state => {
   return {
     movies: state.movies.movies,
-    error: state.movies.error
+    error: state.movies.error,
+    apiLoading: state.movies.apiLoading
   };
 };
 
