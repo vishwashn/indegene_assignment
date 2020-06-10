@@ -19,7 +19,7 @@ const reducer = (state = initialState, action) => {
     case actionTypes.fetchMovies:
       return updateObject(state, { movies: action.movies, error: null, apiLoading: false });
     case actionTypes.error:
-      return updateObject(state, { movies: [], error: action.error });
+      return updateObject(state, { movies: [], error: action.error, apiLoading: false });
     default:
       return state;
   }
