@@ -1,11 +1,11 @@
 import React from 'react';
-import Todo from './pages/Todo';
+import Movies from './pages/Movies';
 import './App.css';
 import 'antd/dist/antd.css';
 
 function App() {
   return (
-    <Todo />
+    <Movies />
   );
 }
 

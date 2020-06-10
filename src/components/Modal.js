@@ -1,72 +1,36 @@
 import React, { Component } from "react";
-import { Modal, Input, DatePicker } from "antd";
+import { Modal } from "antd";
+import { renderMovieDetails } from "./MovieDetails";
+import { LoadingOutlined } from "@ant-design/icons";
 
 class ModalComponent extends Component {
-  state = {
-    confirmLoading: false
-  };
-
-  handleOk = () => {
-    this.setState({
-      confirmLoading: true
-    });
-    setTimeout(() => {
-      this.props.handleOk();
-      this.props.modalCallback();
-      this.setState({
-        confirmLoading: false
-      });
-    }, 1000);
-  };
-
   handleCancel = () => {
     this.props.modalCallback();
   };
 
   render() {
-    const { confirmLoading } = this.state;
-    const { title, fields, visible } = this.props;
+    const { visible, movieDetails, loading = true } = this.props;
     return (
       <div>
         <Modal
-          title={title}
+          title="Movie details"
           visible={visible}
-          onOk={this.handleOk}
-          confirmLoading={confirmLoading}
           onCancel={this.handleCancel}
+          footer={null}
+          width={330}
         >
-          {fields.map(f => {
-            if (f.type === "input-text") {
-              return (
-                <>
-                  <label>{f.label}</label>
-                  <Input
-                    key={f.target}
-                    value={f.value}
-                    onChange={event =>
-                      this.props.onChangeCallback(f.target, event.target.value)
-                    }
-                    placeholder={f.label}
-                  />
-                </>
-              );
-            } else if (f.type === "date") {
-              return (
-                <>
-                  <label>{f.label}</label><br/>
-                  <DatePicker
-                    key={f.target}
-                    placeholder={f.label}
-                    value={f.value}
-                    onChange={moment =>
-                      this.props.onChangeCallback(f.target, moment)
-                    }
-                    format="YYYY/MM/DD"
-                  />
-                </>
-              );
-            }
-          })}
+          {loading ? (
+            <LoadingOutlined
+              style={{
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                fontSize: "200px"
+              }}
+            />
+          ) : (
+            movieDetails && renderMovieDetails(movieDetails)
+          )}
         </Modal>
       </div>
     );
